@@ -92,9 +92,12 @@ namespace TfsBuild.NuGetter.Activities
                 return fileList[0];
             }
 
-            var exMessage = fileList.Length > 1 ? 
-                string.Format("Search pattern '{0}' retrieved more than one file at: {1}", fileNamePattern, searchFolder) :
-                string.Format("Search pattern '{0}' did not find any files at: {1}", fileNamePattern, searchFolder);
+            if (fileList.Length == 0)
+            {
+                return string.Empty;
+            }
+
+            var exMessage = string.Format("Search pattern '{0}' retrieved more than one file at: {1}", fileNamePattern, searchFolder);
 
             throw new ArgumentException(exMessage);
         }
